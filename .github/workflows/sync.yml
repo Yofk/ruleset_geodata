@@ -2,7 +2,6 @@ name: Upstream Sync
 
 permissions:
   contents: write
-  workflows: write
 
 on:
   schedule:
@@ -25,11 +24,11 @@ jobs:
           upstream_sync_repo: DustinWin/ruleset_geodata
           upstream_sync_branch: main
           target_sync_branch: main
-          target_repo_token: ${{ secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
+          target_repo_token: ${{ secrets.WORKFLOW_PAT }}
           test_mode: false
 
       - name: Sync check
         if: failure()
         run: |
-          echo "[Error] 自动同步失败。若因 workflow 文件变更，请确认 WORKFLOW_PAT secret 有 workflow 权限，或手动 Sync Fork。"
+          echo "[Error] 自动同步失败。请确认 WORKFLOW_PAT secret 有 repo+workflow 权限，或手动 Sync Fork。"
           exit 1
