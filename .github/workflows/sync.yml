@@ -2,6 +2,7 @@ name: Upstream Sync
 
 permissions:
   contents: write
+  workflows: write
 
 on:
   schedule:
@@ -21,14 +22,14 @@ jobs:
         id: sync
         uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.3
         with:
-          upstream_sync_repo: Loyalsoldier/v2ray-rules-dat
-          upstream_sync_branch: master
+          upstream_sync_repo: DustinWin/ruleset_geodata
+          upstream_sync_branch: main
           target_sync_branch: main
-          target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+          target_repo_token: ${{ secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
           test_mode: false
 
       - name: Sync check
         if: failure()
         run: |
-          echo "[Error] 由于上游仓库的 workflow 文件变更，导致 GitHub 自动暂停了本次自动更新，你需要手动 Sync Fork 一次。"
+          echo "[Error] 自动同步失败。若因 workflow 文件变更，请确认 WORKFLOW_PAT secret 有 workflow 权限，或手动 Sync Fork。"
           exit 1
