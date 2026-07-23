@@ -16,6 +16,9 @@ jobs:
     steps:
       - name: Checkout target repo
         uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.WORKFLOW_PAT }}
+          fetch-depth: 0
 
       - name: Sync upstream changes
         id: sync
@@ -30,5 +33,6 @@ jobs:
       - name: Sync check
         if: failure()
         run: |
-          echo "[Error] 自动同步失败。请确认 WORKFLOW_PAT secret 有 repo+workflow 权限，或手动 Sync Fork。"
+          echo "[Error] 自动同步失败。常见原因：1) WORKFLOW_PAT 失效/权限不足 2) 与自定义改动冲突。"
+          echo "需要时手动对齐上游并重贴自定义。"
           exit 1
