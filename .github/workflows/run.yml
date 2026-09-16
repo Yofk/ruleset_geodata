@@ -27,7 +27,7 @@ jobs:
           echo "singbox_core_compatible_version=$(curl -fsSL https://raw.githubusercontent.com/reF1nd/sing-box/reF1nd-testing/docs/configuration/rule-set/source-format.md | awk '/\*/{lines[++count]=$0} END{print lines[count-1]}' | sed -n 's/.*\([0-9]\+\.[0-9]\+\.[0-9]\+\).*/\1/p')" >> "${GITHUB_ENV}"
           echo "singbox_rules_latest_version=$(curl -fsSL https://raw.githubusercontent.com/reF1nd/sing-box/reF1nd-testing/docs/configuration/rule-set/source-format.md | awk '/\*/ {last=$0} END {print last}' | sed -n 's/^* \([0-9]\+\):.*/\1/p')" >> "${GITHUB_ENV}"
           echo "singbox_rules_compatible_version=$(curl -fsSL https://raw.githubusercontent.com/reF1nd/sing-box/reF1nd-testing/docs/configuration/rule-set/source-format.md | awk '/\*/{lines[++count]=$0} END{print lines[count-1]}' | sed -n 's/^* \([0-9]\+\):.*/\1/p')" >> "${GITHUB_ENV}"
-          echo "domains_download_url=https://github.com/DustinWin/domain-list-custom/releases/download/domains" >> "${GITHUB_ENV}"
+          echo "domains_download_url=https://github.com/Yofk/domain-list-custom/releases/download/domains" >> "${GITHUB_ENV}"
           echo "ips_download_url=https://github.com/DustinWin/geoip/releases/download/ips" >> "${GITHUB_ENV}"
         shell: bash
 
@@ -37,7 +37,7 @@ jobs:
       - name: Checkout `DustinWin/domain-list-custom`
         uses: actions/checkout@v7
         with:
-          repository: DustinWin/domain-list-custom
+          repository: Yofk/domain-list-custom
           path: custom
 
       - name: Checkout `v2fly/domain-list-community`
